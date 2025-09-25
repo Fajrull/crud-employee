@@ -7,6 +7,7 @@ import Crud_Tes.fajrul.model.dto.response.EmployeeResponse;
 import Crud_Tes.fajrul.model.dto.response.PagingResponse;
 import Crud_Tes.fajrul.service.EmployeeService;
 import Crud_Tes.fajrul.utils.validate.PagingUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PostMapping
-    public ResponseEntity<CommonResponse<EmployeeResponse>> addNewEmploye(@RequestBody EmployeeRequest request) {
+    public ResponseEntity<CommonResponse<EmployeeResponse>> addNewEmploye(@Valid @RequestBody EmployeeRequest request) {
         EmployeeResponse employee = employeeService.create(request);
         CommonResponse<EmployeeResponse> response = CommonResponse.<EmployeeResponse>builder()
                 .statusCode(HttpStatus.CREATED.value())
@@ -93,7 +94,7 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public ResponseEntity<CommonResponse<EmployeeResponse>> updateEmployee(@RequestBody EmployeeRequest request){
+    public ResponseEntity<CommonResponse<EmployeeResponse>> updateEmployee(@Valid @RequestBody EmployeeRequest request){
         EmployeeResponse employee = employeeService.update(request);
         CommonResponse<EmployeeResponse> response = CommonResponse.<EmployeeResponse>builder()
                 .statusCode(HttpStatus.OK.value())
