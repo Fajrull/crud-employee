@@ -38,7 +38,7 @@ Aplikasi akan berjalan di: `http://localhost:8080`
 ## API Documentation
 
 ### Swagger UI
-Akses dokumentasi API lengkap di: **http://localhost:8080/swagger-ui/index.html#/**
+Akses dokumentasi API lengkap di: **http://localhost:8080/swagger-ui/index.html**
 
 ### API Endpoints
 
@@ -159,7 +159,6 @@ Error response format:
 ## Screenshots
 
 ### Swagger Documentation
-![Swagger UI](docs/images/swagger-ui.png)
+![Swagger UI](swagger.png)
 
-### Unit Test Results
-![Unit Test Coverage](docs/images/test-coverage.png)
+
