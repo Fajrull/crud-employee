@@ -144,6 +144,6 @@ Error response format:
 ## Screenshots
 
 ### Swagger Documentation
-![Swagger UI](../swagger.png)
+![Swagger UI](swagger.png)
 
 
