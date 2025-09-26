@@ -27,9 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Page<EmployeeResponse> getAll(SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(),request.getSize());
-        return employeeRepository.findAll(pageable).map(this::mapToResponse);
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
+
+        String query = request.getQuery() != null ? request.getQuery() : "";
+        Page<Employee> employeePage = employeeRepository
+                .findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(query, query, pageable);
+
+        return employeePage.map(this::mapToResponse);
     }
+
 
     @Override
     public EmployeeResponse getById(String id) {
@@ -37,10 +43,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeResponse update(EmployeeRequest request) {
-        findByIdOrThrowNotFound(String.valueOf(request.getId()));
-        Employee employee = mapToEntity(request);
-        return mapToResponse(employeeRepository.saveAndFlush(employee));
+    public EmployeeResponse update(String id, EmployeeRequest request) {
+        Employee existingEmployee = findByIdOrThrowNotFound(id);
+
+        existingEmployee.setFirstName(request.getFirstName());
+        existingEmployee.setLastName(request.getLastName());
+        existingEmployee.setGender(request.getGender());
+        existingEmployee.setBirthDate(request.getBirthDate());
+        existingEmployee.setHireDate(request.getHireDate());
+
+        Employee updatedEmployee = employeeRepository.saveAndFlush(existingEmployee);
+        return mapToResponse(updatedEmployee);
     }
 
     @Override

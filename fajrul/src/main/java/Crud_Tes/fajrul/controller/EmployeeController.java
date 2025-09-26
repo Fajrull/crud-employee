@@ -93,12 +93,15 @@ public class EmployeeController {
                 .body(response);
     }
 
-    @PutMapping
-    public ResponseEntity<CommonResponse<EmployeeResponse>> updateEmployee(@Valid @RequestBody EmployeeRequest request){
-        EmployeeResponse employee = employeeService.update(request);
+    @PutMapping("/{id}")
+    public ResponseEntity<CommonResponse<EmployeeResponse>> updateEmployee(
+            @PathVariable String id,
+            @Valid @RequestBody EmployeeRequest request) {
+
+        EmployeeResponse employee = employeeService.update(id, request);
         CommonResponse<EmployeeResponse> response = CommonResponse.<EmployeeResponse>builder()
                 .statusCode(HttpStatus.OK.value())
-                .message("Employee update successfully")
+                .message("Employee updated successfully")
                 .data(employee)
                 .build();
         return ResponseEntity

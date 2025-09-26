@@ -9,6 +9,6 @@ public interface EmployeeService {
     EmployeeResponse create(EmployeeRequest request);
     Page<EmployeeResponse> getAll(SearchRequest request);
     EmployeeResponse getById(String id);
-    EmployeeResponse update(EmployeeRequest request);
+    EmployeeResponse update(String id, EmployeeRequest request);
     EmployeeResponse deleteById(String id);
 }

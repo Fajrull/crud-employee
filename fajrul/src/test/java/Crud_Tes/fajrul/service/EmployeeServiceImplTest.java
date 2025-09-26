@@ -24,6 +24,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -80,9 +81,11 @@ class EmployeeServiceImplTest {
 
     @Test
     void testGetAllEmployeeSuccess() {
+        // Mock data employee
         List<Employee> employees = List.of(employee);
         Page<Employee> employeePage = new PageImpl<>(employees);
 
+        // Search request
         SearchRequest searchRequest = SearchRequest.builder()
                 .query("fajrul")
                 .page(0)
@@ -91,13 +94,20 @@ class EmployeeServiceImplTest {
                 .sort("firstName")
                 .build();
 
-        when(employeeRepository.findAll(any(Pageable.class))).thenReturn(employeePage);
+        // Mock repository method yang sesuai dengan service
+        when(employeeRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                eq("fajrul"), eq("fajrul"), any(Pageable.class))
+        ).thenReturn(employeePage);
 
+        // Call service
         Page<EmployeeResponse> response = employeeService.getAll(searchRequest);
 
+        // Assertions
         assertNotNull(response);
         assertEquals(1, response.getTotalElements());
+        assertEquals("fajrul", response.getContent().get(0).getFirstName());
     }
+
 
     @Test
     void testGetByIdSuccess() {
@@ -119,7 +129,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void testUpdateEmployeeSuccess() {
-        employeeRequest.setId("fj-1");
+        String id = "fj-1";
         employeeRequest.setFirstName("mfajrul");
 
         when(employeeRepository.findById("fj-1")).thenReturn(Optional.of(employee));
@@ -134,7 +144,7 @@ class EmployeeServiceImplTest {
                         .build()
         );
 
-        EmployeeResponse response = employeeService.update(employeeRequest);
+        EmployeeResponse response = employeeService.update(id, employeeRequest);
 
         assertNotNull(response);
         assertEquals("mfajrul", response.getFirstName());
