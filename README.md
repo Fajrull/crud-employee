@@ -2,6 +2,20 @@
 
 REST API sederhana untuk operasi CRUD (Create, Read, Update, Delete) pada data Employee menggunakan Spring Boot.
 
+## Technical Requirements
+
+- **Framework**: Spring Boot (v3.x)
+- **Frontend**: Thymeleaf for server-side rendering of the user interface
+- **ORM**: JPA (Hibernate) for object-relational mapping
+- **Architecture**: Implements the MVC (Model-View-Controller) pattern
+- **Database**: PostgreSQL as the relational database
+- **Unit Testing**: JUnit and Mockito for unit testing
+- **REST Documentation**: Swagger (OpenAPI) for API documentation
+- **Exception Handling**: Centralized error handling with standard response format
+- **Table Display**: DataTables for interactive table display in the user interface
+- **Java Version**: Java 17 or higher
+- **Build Tool**: Maven for dependency management and build
+
 
 ## How to Run
 
@@ -39,6 +53,9 @@ Aplikasi akan berjalan di: `http://localhost:8080`
 
 ### Swagger UI
 Akses dokumentasi API lengkap di: **http://localhost:8080/swagger-ui/index.html**
+
+### User Interface
+Akses user interface di : **http://localhost:8080/employees**
 
 ### API Endpoints
 
@@ -146,4 +163,11 @@ Error response format:
 ### Swagger Documentation
 ![Swagger UI](swagger.png)
 
+### User Interface
+![User Interface](ui.png)
 
+
+## Video Presentasi
+
+Watch the project presentation video here:  
+[Video Presentasi](https://jam.dev/c/b7c0ee30-2ea1-4ca7-ab89-f77f4f5cacf7)
